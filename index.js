@@ -30,6 +30,6 @@ app.use('/transaksi', require('./routes/transaksi'))
 app.use('/kategori', require('./routes/produkKategori'))
 
 
-app.listen(5001, '0.0.0.0', () => {
+app.listen(5001, () => {
     console.log('Berhasil Jalan')
 })

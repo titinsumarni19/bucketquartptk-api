@@ -16,7 +16,9 @@ const produkSchema = new Schema({
     harga: {
         type: Number
       },
-    image: { type: String, default: null },
+    image: {
+      type: String,
+      default: null },
 })
 
 module.exports = mongoose.model('produk', produkSchema)

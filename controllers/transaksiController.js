@@ -51,7 +51,7 @@ exports.create = (req, res) => {
         const newTransaksi = new transaksiModel({
             idUser,
             produkItems: produkItems.map(item => ({
-                idProduk: new mongoose.Types.ObjectId(item.idProduk, item.stok == item.stok - 1),
+                idProduk: new mongoose.Types.ObjectId(item.idProduk),
                 kuantitas: item.kuantitas
             })),
             totaltransaksi,

@@ -65,7 +65,7 @@ exports.create = (req, res) => {
                 return Promise.all(produkItems.map(item => {
                     return produkModel.findByIdAndUpdate(
                         item.idProduk,
-                        { $inc: { stok: -item.kuantitas } }, // Mengurangi stok produk
+                        {  stok: -item.kuantitas }, // Mengurangi stok produk
                         { new: true }
                     ).then(updatedProduct => {
                         if (updatedProduct) {

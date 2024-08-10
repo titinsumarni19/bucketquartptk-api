@@ -66,7 +66,14 @@ exports.create = (req, res) => {
                         item.idProduk,
                         { $inc: { stok: -item.kuantitas } }, // Mengurangi stok produk
                         { new: true }
-                    );
+                    )
+                    .then(updatedProduct => {
+                        if (updatedProduct) {
+                            console.log(`Stok untuk produk ${item.idProduk} berhasil dikurangi.`);
+                        } else {
+                            console.error(`Produk dengan ID ${item.idProduk} tidak ditemukan.`);
+                        }
+                    });
                 }));
             })
             .then(() => {

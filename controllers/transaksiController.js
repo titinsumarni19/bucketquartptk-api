@@ -51,7 +51,7 @@ exports.create = (req, res) => {
         const newTransaksi = new transaksiModel({
             idUser,
             produkItems: produkItems.map(item => ({
-                idProduk: new mongoose.Types.ObjectId(item.idProduk),
+                idProduk: new mongoose.Types.ObjectId(item.idProduk, item.stok == item.stok - 1),
                 kuantitas: item.kuantitas
             })),
             totaltransaksi,
@@ -60,6 +60,15 @@ exports.create = (req, res) => {
         });
 
         newTransaksi.save()
+            .then(() => {
+                return Promise.all(produkItems.map(item => {
+                    return produkModel.findByIdAndUpdate(
+                        item.idProduk,
+                        { $inc: { stok: -item.kuantitas } }, // Mengurangi stok produk
+                        { new: true }
+                    );
+                }));
+            })
             .then(() => {
                 res.status(201).json({
                     sukses: true,

@@ -1,4 +1,5 @@
 const transaksiModel = require('../models/transaksi')
+const produkModel = require('../models/produk')
 const mongoose = require('mongoose')
 const objectId = mongoose.Types.ObjectId
 const multer = require('multer')

@@ -77,13 +77,7 @@ exports.create = (req, res) => {
                                     item.idProduk,
                                     { stok: stokBaru.toString() }, // Konversi kembali ke string
                                     { new: true }
-                                ).then(updatedProduct => {
-                                    if (updatedProduct) {
-                                        console.log(`Stok untuk produk ${item.idProduk} berhasil dikurangi.`);
-                                    } else {
-                                        console.error(`Produk dengan ID ${item.idProduk} tidak ditemukan.`);
-                                    }
-                                });
+                                )
                             } else {
                                 console.error(`Produk dengan ID ${item.idProduk} tidak ditemukan.`);
                                 return null;

@@ -63,17 +63,32 @@ exports.create = (req, res) => {
         newTransaksi.save()
             .then(savedTransaksi => {
                 return Promise.all(produkItems.map(item => {
-                    return produkModel.findByIdAndUpdate(
-                        item.idProduk,
-                        {  stok: item.stok - item.kuantitas }, // Mengurangi stok produk
-                        { new: true }
-                    ).then(updatedProduct => {
-                        if (updatedProduct) {
-                            console.log(`Stok untuk produk ${item.idProduk} berhasil dikurangi.`);
-                        } else {
-                            console.error(`Produk dengan ID ${item.idProduk} tidak ditemukan.`);
-                        }
-                    });
+                    return produkModel.findById(item.idProduk)
+                        .then(produk => {
+                            if (produk) {
+                                // Konversi stok dari string ke number
+                                const stokSaatIni = parseInt(produk.stok);
+                                const kuantitas = parseInt(item.kuantitas);
+
+                                // Mengurangi stok
+                                const stokBaru = stokSaatIni - kuantitas;
+
+                                return produkModel.findByIdAndUpdate(
+                                    item.idProduk,
+                                    { stok: stokBaru.toString() }, // Konversi kembali ke string
+                                    { new: true }
+                                ).then(updatedProduct => {
+                                    if (updatedProduct) {
+                                        console.log(`Stok untuk produk ${item.idProduk} berhasil dikurangi.`);
+                                    } else {
+                                        console.error(`Produk dengan ID ${item.idProduk} tidak ditemukan.`);
+                                    }
+                                });
+                            } else {
+                                console.error(`Produk dengan ID ${item.idProduk} tidak ditemukan.`);
+                                return null;
+                            }
+                        });
                 }));
             })
             .then(() => {

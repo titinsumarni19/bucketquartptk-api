@@ -12,7 +12,7 @@ const transaksiSchema = new Schema({
         idProduk: { type: mongoose.Schema.Types.ObjectId, ref: 'produk'},
         kuantitas: { type: Number, required: true }
     }],
-    totaltransaksi : {type: String},
+    totaltransaksi : {type: Number, required: true},
     status: { type: Number, default: 0 },
     buktiPembayaran: { type: String, default: null },
     detail: { type: String, default: null },

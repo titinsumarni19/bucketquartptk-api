@@ -19,7 +19,7 @@ const userSchema = new Schema({
     },
     alamat: {
         type: String,
-        default: ''
+        default: null
     },
     role: {
         type: Number,

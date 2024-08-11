@@ -5,6 +5,9 @@ const objectId = mongoose.Types.ObjectId
 
 const transaksiSchema = new Schema({
     idUser: { type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+    penerimaBaru: {type: String, required: null},
+    teleponBaru: {type: String, required: null},
+    alamatBaru: {type: String, required: null},
     produkItems: [{
         idProduk: { type: mongoose.Schema.Types.ObjectId, ref: 'produk'},
         kuantitas: { type: Number, required: true }

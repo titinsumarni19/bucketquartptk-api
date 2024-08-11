@@ -29,7 +29,7 @@ exports.create = (req, res) => {
             });
         }
 
-        let { idUser, produkItems, totaltransaksi, status, namaPenerima, teleponPenerima, alamatPenerima } = req.body;
+        let { idUser, produkItems, totaltransaksi, status, penerimaBaru, teleponBaru, alamatBaru } = req.body;
         const buktiPembayaran = req.file ? req.file.filename : null;
 
         if (!produkItems || !Array.isArray(produkItems)) {
@@ -51,10 +51,9 @@ exports.create = (req, res) => {
         
         const newTransaksi = new transaksiModel({
             idUser,
-            penerimaBaru: namaPenerima || null, // Set to null if not provided
-            teleponBaru: teleponPenerima || null, // Set to null if not provided
-            alamatBaru: alamatPenerimaPenerima || null, // Set to null if not provided
-            nomorTelepon: nomorTelepon || null,
+            penerimaBaru: penerimaBaru || null, // Set to null if not provided
+            teleponBaru: teleponBaru || null, // Set to null if not provided
+            alamatBaru: alamatBaru || null, // Set to null if not provided
             produkItems: produkItems.map(item => ({
                 idProduk: new mongoose.Types.ObjectId(item.idProduk),
                 kuantitas: item.kuantitas

@@ -20,6 +20,8 @@ const upload = multer({ storage: storage, limits: { fileSize: 20000000 } }).sing
 
 // Create transaction
 exports.create = (req, res) => {
+    console.log('Request Body:', req.body);
+
     upload(req, res, function (err) {
         if (err) {
             return res.status(500).json({
